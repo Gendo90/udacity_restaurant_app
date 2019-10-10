@@ -44,7 +44,7 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   color: #aaa;
   font-size: 8pt;
   letter-spacing: 1px;
-  padding: 25px;
+  padding: 10px;
   text-align: center;
   text-transform: uppercase;
 }
@@ -210,7 +210,7 @@ nav h1 a {
 .inside #footer {
   bottom: 0;
   position: absolute;
-  width: 50%;
+  width: 100%;
 }
 #restaurant-name {
   color: #f18200;
@@ -245,10 +245,11 @@ nav h1 a {
   border-bottom: 1px solid #d9d9d9;
   border-top: 1px solid #fff;
   padding: 140px 40px 30px;
-  width: 50%;
+  width: 40%;
 }
 #reviews-container {
-  padding: 30px 40px 80px;
+  /* padding: 30px 40px 80px; */
+  padding: 5% 5% 5%;
 }
 #reviews-container h2 {
   color: #f58500;
@@ -260,6 +261,11 @@ nav h1 a {
 #reviews-list {
   margin: 0;
   padding: 0;
+  display: flex;
+  -webkit-flex: row;
+  -ms-flex: row;
+  flex: row;
+  flex-wrap: wrap;
 }
 #reviews-list li {
   background-color: #fff;
