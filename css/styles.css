@@ -284,3 +284,35 @@ nav h1 a {
 #restaurant-hours td {
   color: #666;
 }
+
+
+@media only screen and (max-width: 600px) {
+    .inside #map-container {
+      background: blue none repeat scroll 0 0;
+      height: 25%;
+      position: relative;
+      width: 100%;
+    }
+
+    #restaurant-container, #reviews-container {
+    border-bottom: 1px solid #d9d9d9;
+    border-top: 1px solid #fff;
+    /* padding: 140px 40px 30px; */
+    width: 85%;
+    }
+
+    .inside #map {
+    background-color: #ccc;
+    margin-top: 80px;
+    height: 40vh;
+    width: 100%;
+    }
+
+    .inside nav {
+        height: auto;
+    }
+
+    .inside nav h1 {
+        padding: 10px;
+    }
+}
