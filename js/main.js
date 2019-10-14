@@ -124,6 +124,15 @@ updateRestaurants = () => {
   })
 }
 
+
+//Add event listener to update restaurants when selected from list and clicked,
+//not just when they gain focus
+let allNeighborhoods = document.getElementById("neighborhoods-select");
+allNeighborhoods.addEventListener("click", updateRestaurants);
+
+let allCuisines = document.getElementById("cuisines-select");
+allCuisines.addEventListener("click", updateRestaurants);
+
 /**
  * Clear current restaurants, their HTML and remove their map markers.
  */
