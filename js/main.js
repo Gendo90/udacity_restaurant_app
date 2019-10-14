@@ -202,6 +202,7 @@ addMarkersToMap = (restaurants = self.restaurants) => {
   restaurants.forEach(restaurant => {
     // Add marker to the map
     const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.newMap);
+    console.log(marker)
     marker.on("click", onClick);
     function onClick() {
       window.location.href = marker.options.url;
@@ -210,6 +211,15 @@ addMarkersToMap = (restaurants = self.restaurants) => {
   });
 
 }
+
+let theMap = document.getElementById("map");
+function onEnterKey(event) {
+    console.log(event.target.keyCode)
+    if(event.keyCode === 13) {
+        event.target.click()
+    }
+}
+theMap.addEventListener("keyup", onEnterKey);
 /* addMarkersToMap = (restaurants = self.restaurants) => {
   restaurants.forEach(restaurant => {
     // Add marker to the map
