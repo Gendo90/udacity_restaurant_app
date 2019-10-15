@@ -315,4 +315,8 @@ nav h1 a {
     .inside nav h1 {
         padding: 10px;
     }
+
+    #breadcrumb {
+        width: 100%;
+    }
 }
