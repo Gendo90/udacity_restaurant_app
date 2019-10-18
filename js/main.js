@@ -8,6 +8,7 @@ var markers = []
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
+  let map = document.getElementById("map");
   initMap(); // added
   fetchNeighborhoods();
   fetchCuisines();
@@ -88,6 +89,8 @@ initMap = () => {
 
   updateRestaurants();
 }
+
+
 /* window.initMap = () => {
   let loc = {
     lat: 40.722216,
@@ -120,6 +123,7 @@ updateRestaurants = () => {
     } else {
       resetRestaurants(restaurants);
       fillRestaurantsHTML();
+      noTabbing(map);
     }
   })
 }
@@ -177,6 +181,7 @@ createRestaurantHTML = (restaurant) => {
 
   const name = document.createElement('h1');
   name.innerHTML = restaurant.name;
+  name.tabIndex = 0;
   li.append(name);
 
   const neighborhood = document.createElement('p');
@@ -189,7 +194,8 @@ createRestaurantHTML = (restaurant) => {
 
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
-  more.href = DBHelper.urlForRestaurant(restaurant);
+  let url = DBHelper.urlForRestaurant(restaurant);
+  more.href = url;
   li.append(more)
 
   return li
@@ -211,14 +217,32 @@ addMarkersToMap = (restaurants = self.restaurants) => {
 
 }
 
-let theMap = document.getElementById("map");
-function onEnterKey(event) {
-    console.log(event.target.keyCode)
-    if(event.keyCode === 13) {
-        event.target.click()
+
+//skip over map and interior items when tabbing through page
+function noTabbing(element) {
+    element.tabIndex = -1;
+    let element_children = element.children;
+    if(element_children.length===0) {
+        return;
+    }
+    for (let child of element_children) {
+        noTabbing(child);
     }
 }
-theMap.addEventListener("keyup", onEnterKey);
+
+
+
+//older code to make markers link to pages when 'enter' button is clicked
+// let theMap = document.getElementById("map");
+// function onEnterKey(event) {
+//     console.log(event.target.keyCode)
+//     if(event.keyCode === 13) {
+//         event.target.click()
+//     }
+// }
+// theMap.addEventListener("keyup", onEnterKey);
+
+
 /* addMarkersToMap = (restaurants = self.restaurants) => {
   restaurants.forEach(restaurant => {
     // Add marker to the map

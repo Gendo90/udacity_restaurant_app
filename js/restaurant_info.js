@@ -5,6 +5,7 @@ var newMap;
  * Initialize map as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
+  let map = document.getElementById("map");
   initMap();
 });
 
@@ -31,8 +32,22 @@ initMap = () => {
       }).addTo(newMap);
       fillBreadcrumb();
       DBHelper.mapMarkerForRestaurant(self.restaurant, self.newMap);
+      //added so that the map is not selected when tabbing through the page
+      noTabbing(map)
     }
   });
+}
+
+//skip over map and interior items when tabbing through page
+function noTabbing(element) {
+    element.tabIndex = -1;
+    let element_children = element.children;
+    if(element_children.length===0) {
+        return;
+    }
+    for (let child of element_children) {
+        noTabbing(child);
+    }
 }
 
 /* window.initMap = () => {
@@ -82,6 +97,7 @@ fetchRestaurantFromURL = (callback) => {
 fillRestaurantHTML = (restaurant = self.restaurant) => {
   const name = document.getElementById('restaurant-name');
   name.innerHTML = restaurant.name;
+  name.tabIndex = 0;
 
   const address = document.getElementById('restaurant-address');
   address.innerHTML = restaurant.address;
@@ -128,6 +144,7 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
   const container = document.getElementById('reviews-container');
   const title = document.createElement('h2');
   title.innerHTML = 'Reviews';
+  title.tabIndex = 0;
   container.appendChild(title);
 
   if (!reviews) {
