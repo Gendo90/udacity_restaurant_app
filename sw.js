@@ -25,27 +25,11 @@ self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(staticCacheName).then(function(cache) {
       return cache.addAll([
-        // '../../css',
         '/css/styles.css',
-        // '../../js',
         'js/dbhelper.js',
         'js/main.js',
         'js/restaurant_info.js',
-        // '../../img',
-        // '../../img/1.jpg',
-        // '../../img/2.jpg',
-        // '../../img/3.jpg',
-        // '../../img/4.jpg',
-        // '../../img/5.jpg',
-        // '../../img/6.jpg',
-        // '../../img/7.jpg',
-        // '../../img/8.jpg',
-        // '../../img/9.jpg',
-        // '../../img/10.jpg',
-        // '../../data',
-        '/data/restaurants.json',
-        // '../../index.html',
-        // '../../restaurant.html'
+        '/data/restaurants.json'
       ]);
     })
   );
@@ -66,21 +50,6 @@ self.addEventListener('activate', function(event) {
   );
 });
 
-// self.addEventListener('fetch', function(event) {
-//   if(event.request.url===homeDomain+"/" || event.request.url===homeDomain) {
-//       event.respondWith(caches.match("/skeleton").then(function(response) {
-//           return response || fetch("/skeleton");
-//       }))
-//   }
-//   else {
-//       event.respondWith(
-//           caches.match(event.request).then(function(response) {
-//               return response || fetch(event.request);
-//           })
-//       );
-//   }
-// });
-
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((resp) => {
@@ -94,12 +63,3 @@ self.addEventListener('fetch', (event) => {
     })
   );
 });
-
-// TODO: listen for the "message" event, and call
-// skipWaiting if you get the appropriate message
-// self.addEventListener('message', function(event) {
-//     if(event.data['refresh']===true){
-//         self.skipWaiting()
-//     }
-// })
-//
