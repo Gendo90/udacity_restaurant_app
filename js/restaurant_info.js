@@ -33,7 +33,10 @@ initMap = () => {
       fillBreadcrumb();
       DBHelper.mapMarkerForRestaurant(self.restaurant, self.newMap);
       //added so that the map is not selected when tabbing through the page
-      noTabbing(map)
+      noTabbing(map);
+      //added so some map elements do not show through the header on smaller
+      //devices
+      lowerZIndex(map);
     }
   });
 }
@@ -47,6 +50,23 @@ function noTabbing(element) {
     }
     for (let child of element_children) {
         noTabbing(child);
+    }
+}
+
+//change css for map so that the zoom controls and bottom links do not show
+//through the header elements on small screen sizes (<600px, with map and
+//content in same column)
+function lowerZIndex(element) {
+    if(element.classList.contains("leaflet-top") || element.classList.contains("leaflet-bottom")) {
+        element.style.zIndex = "auto";
+    }
+    // element.style.zIndex -= 1000;
+    let element_children = element.children;
+    if(element_children.length===0) {
+        return;
+    }
+    for (let child of element_children) {
+        lowerZIndex(child);
     }
 }
 
@@ -146,7 +166,7 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
  */
 fillReviewsHTML = (reviews = self.restaurant.reviews) => {
   const container = document.getElementById('reviews-container');
-  const title = document.createElement('h2');
+  const title = document.createElement('h3');
   title.innerHTML = 'Reviews';
   title.tabIndex = 0;
   container.appendChild(title);
@@ -198,7 +218,8 @@ createReviewHTML = (review) => {
 fillBreadcrumb = (restaurant=self.restaurant) => {
   const breadcrumb = document.getElementById('breadcrumb');
   const li = document.createElement('li');
-  li.innerHTML = restaurant.name;
+  //Make link to current page in breadcrumb
+  li.innerHTML = `<a href=${DBHelper.urlForRestaurant(restaurant)} aria-current="page">${restaurant.name}</a>`;
   breadcrumb.appendChild(li);
 }
 
